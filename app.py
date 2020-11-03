@@ -63,12 +63,21 @@ def favorites_results():
 def secret_message():
     """Shows the user a form to collect a secret message. Sends the result via
     the POST method to keep it a secret!"""
-    pass
+    return """
+    <form action="/message_results" method="POST">
+         Enter Your Secured Message:
+         <input type="text" name="message">
+         <input type="submit" value="Submit!">
+    </form>
+    """
 
 @app.route('/message_results', methods=['POST'])
 def message_results():
-    """Shows the user their message, with the letters in sorted order."""
-    pass
+    
+    user_phrase = request.form['message']
+    scramble_phrase = sort_letters(user_phrase)
+    return f'Here is your Message! {scramble_phrase}'
+
 
 @app.route('/calculator')
 def calculator():
@@ -91,8 +100,13 @@ def calculator():
 @app.route('/calculator_results')
 def calculator_results():
     """Shows the user the result of their calculation."""
-    pass
-
+    first_number = request.args.get('operand1')
+    math_operation = request.args.get('operation')
+    second_number = request.args.get('operand2')
+    result = request.args.get('operand1') request.args.get('operation') request.args.get('operand2')
+    if math_operation== 
+    
+    return f'if you choose to {} {first_number} and {second_number} Your result will be: {result}'
 
 # List of compliments to be used in the `compliments_results` route (feel free 
 # to add your own!) 
