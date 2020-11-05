@@ -23,7 +23,7 @@ def choose_froyo():
 def show_froyo_results():
     """Shows the user what they ordered from the previous page."""
     context = {
-    'users_froyo_flavor': request.args.get('flavor')
+    'users_froyo_flavor': request.args.get('flavor'),
     'users_froyo_topping': request.args.get('toppings')
     }
     return render_template(froyo_results.html, **context)
@@ -80,18 +80,31 @@ def calculator():
 @app.route('/calculator_results')
 def calculator_results():
     """Shows the user the result of their calculation."""
-    context = {
+    
     first_number = int(request.args.get('operand1'))
     math_operation = request.args.get('operation')
-    second_number = int(request.args.get('operand2'))
-    result = first_number math_operation second_number
+    second_number = int(request.args.get('operand2'))  
+
+    result = 0
+    if math_operation == "add":
+       result = first_number + second_number
+    elif math_operation == "subtract":
+       result = first_number - second_number
+    elif math_operation == "multiply":
+       result = first_number * second_number
+    elif math_operation == "divide":
+        result = first_number / second_number
+
+    context = {
+        'first_number' :first_number,
+         'second_number': second_number,
+         'math_operation' : math_operation,
+         "result" :result
     }
-    
+  
     return render_template('calculator_results.html', **context)
 
-# List of compliments to be used in the `compliments_results` route (feel free 
-# to add your own!) 
-# https://systemagicmotives.com/positive-adjectives.htm
+
 list_of_compliments = [
     'awesome',
     'beatific',
@@ -120,18 +133,18 @@ list_of_compliments = [
 
 @app.route('/compliments')
 def compliments():
-   """ Shows the user a form to get compliments."""
+    """ Shows the user a form to get compliments."""
     return render_template('compliments_form.html')
 
 @app.route('/compliments_results')
 def compliments_results():
-  Show the user some compliments.
+    """Show the user some compliments."""
     context = {
-        # TODO: Enter your context variables here.
+       
     }
 
     return render_template('compliments_results.html', **context)
 
 
 if __name__ == '__main__':
-    app.run(debug=true)
+    app.run()
